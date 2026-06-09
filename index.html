@@ -8,37 +8,58 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="styles.css">
+  
+  <style>
+    /* Grid layout adjustments for displaying both tracking maps side-by-side */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      width: 100%;
+      max-width: 1800px;
+      margin: 0 auto;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    /* Responsive adjustment for vertical stacked displays on small screens */
+    @media (max-width: 1024px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
   <h1>ប្រព័ន្ធតាមដានយន្តហោះនិងដ្រូនផ្សាយផ្ទាល់</h1>
 
-  <div class="map-container">
-    <div class="hologram-effect"></div>
-    <div class="scanline"></div>
+  <div class="dashboard-grid">
 
-    <iframe
-      class="map-iframe"
-      src="https://globe.adsbexchange.com/?hideButtons=1&hideSideBar=1&enableLabels=1&type=UAV.*|MQ.*|RQ.*|GH.*"
-      loading="lazy">
-    </iframe>
+    <div class="map-container">
+      <div class="hologram-effect"></div>
+      <div class="scanline"></div>
+      <iframe
+        class="map-iframe"
+        id="adsb-map"
+        src="https://globe.adsbexchange.com/?hideButtons=1&hideSideBar=1&enableLabels=1&type=UAV.*|MQ.*|RQ.*|GH.*"
+        loading="lazy">
+      </iframe>
+    </div>
+
+    <div class="map-container">
+      <div class="hologram-effect"></div>
+      <div class="scanline"></div>
+      <iframe
+        class="map-iframe"
+        id="fr24-map"
+        src="https://www.flightradar24.com/13.06,93.10/5"
+        loading="lazy">
+      </iframe>
+    </div>
+
   </div>
 
   <script src="script.js"></script>
-
-  <h1>ប្រព័ន្ធតាមដានយន្តនិងហោះដ្រូនផ្សាយផ្ទាល់</h1>
-
-  <div class="map-container">
-    <div class="hologram-effect"></div>
-    <div class="scanline"></div>
-
-    <iframe
-      class="map-iframe"
-      src="https://www.flightradar24.com/13.06,93.10/5"
-      loading="lazy">
-    </iframe>
-  </div>
-  
-  <script src="script1.js"></script>
 </body>
 </html>
