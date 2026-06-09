@@ -3,8 +3,8 @@
  */
 
 // 1. Dual-Engine Target Routing Map configurations
-const ADS_B_BASE = "https://globe.adsbexchange.com/?hideButtons=1&hideSideBar=1&enableLabels=1";
-const FR24_BASE  = "https://www.flightradar24.com/13.06,93.10/5";
+const ADS_B_BASE = "https://globe.adsbexchange.com/?lat=13.06&lon=93.10&zoom=5&hideButtons=1&hideSideBar=1&enableLabels=1";
+const FR24_BASE  = "https://www.flightradar24.com/simple_index.php?lat=13.06&lon=93.10&z=5";
 
 const TRACKING_CONFIGS = {
   ALL: {
