@@ -4,7 +4,7 @@
 
 // 1. Target configurations for stealth and special military operation profiles
 const TRACKING_MODES = {
-  DRONES: "type=UAV.*|MQ.*|RQ.*|GH.*",
+  All: "type=UAV.*|MQ.*|RQ.*|GH.*",
   STEALTH_MILITARY: "mil=1&type=F35*|F22*|B2*|B21*|F117*|E3*|RC135*",
   ALL_MILITARY: "mil=1",
   RAW_MLAT: "mlat=1" // Finds aircraft tracking only via receiver triangulation (no GPS broadcast)
