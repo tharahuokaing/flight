@@ -1,36 +1,56 @@
 /**
- * Stealth & Military Aircraft Tracking Core Console
+ * Unified Tactical Drone & Military Tracking Core Console
  */
 
-// 1. Target configurations for stealth and special military operation profiles
-const TRACKING_MODES = {
-  All: "type=UAV.*|MQ.*|RQ.*|GH.*",
-  STEALTH_MILITARY: "mil=1&type=F35*|F22*|B2*|B21*|F117*|E3*|RC135*",
-  ALL_MILITARY: "mil=1",
-  RAW_MLAT: "mlat=1" // Finds aircraft tracking only via receiver triangulation (no GPS broadcast)
+// 1. Dual-Engine Target Routing Map configurations
+const ADS_B_BASE = "https://globe.adsbexchange.com/?hideButtons=1&hideSideBar=1&enableLabels=1";
+const FR24_BASE  = "https://www.flightradar24.com/13.06,93.10/5";
+
+const TRACKING_CONFIGS = {
+  ALL: {
+    adsb: "type=UAV.*|MQ.*|RQ.*|GH.*", // Default view shows drones on ADS-B
+    fr24: ""                            // Default view shows raw region on FR24
+  },
+  DRONES: {
+    adsb: "type=UAV.*|MQ.*|RQ.*|GH.*",
+    fr24: "aircraft=uav,mq9,rq4"
+  },
+  STEALTH_MILITARY: {
+    adsb: "mil=1&type=F35*|F22*|B2*|B21*|F117*|E3*|RC135*",
+    fr24: "aircraft=f35,f22,b2,e3cf,r135"
+  },
+  ALL_MILITARY: {
+    adsb: "mil=1",
+    fr24: "cat=military"
+  }
 };
 
-// Base map engine endpoint
-const BASE_MAP_URL = "https://globe.adsbexchange.com/?hideButtons=1&hideSideBar=1&enableLabels=1";
-
 /**
- * Updates the map iframe source to filter by specific target criteria
- * @param {string} modeKey - The key corresponding to the desired tracking profile
+ * Coordinated Map Link Updater
+ * Targets both iframes dynamically on click
  */
 function switchTrackingTarget(modeKey) {
-  const iframe = document.querySelector('.map-iframe');
-  if (!iframe) return;
+  const adsbIframe = document.getElementById('adsb-map');
+  const fr24Iframe = document.getElementById('fr24-map');
+  const mode = TRACKING_CONFIGS[modeKey];
 
-  const filterParam = TRACKING_MODES[modeKey];
-  if (filterParam) {
-    // Inject the new filter configuration into the map display
-    iframe.src = `${BASE_MAP_URL}&${filterParam}`;
-    console.log(`📡 Scan profile changed to: ${modeKey}`);
+  if (!mode) return;
+
+  // Update ADS-B Exchange Screen
+  if (adsbIframe) {
+    adsbIframe.src = mode.adsb ? `${ADS_B_BASE}&${mode.adsb}` : ADS_B_BASE;
   }
+
+  // Update Flightradar24 Screen
+  if (fr24Iframe) {
+    fr24Iframe.src = mode.fr24 ? `${FR24_BASE}?${mode.fr24}` : FR24_BASE;
+  }
+
+  console.log(`📡 Dual-Array Scan initialized: ${modeKey}`);
 }
 
 /**
- * Creates an interactive HUD Control Panel inside the UI dynamically
+ * Creates a Single Unified Interactive HUD Control Panel
  */
 function injectHUDConsole() {
   const consoleContainer = document.createElement('div');
@@ -50,8 +70,8 @@ function injectHUDConsole() {
     backdrop-filter: blur(5px);
   `;
 
-  // Generate control tabs for the interface
-  Object.keys(TRACKING_MODES).forEach(mode => {
+  // Generate tactical buttons from unified layout keys
+  Object.keys(TRACKING_CONFIGS).forEach(mode => {
     const btn = document.createElement('button');
     btn.innerText = mode.replace('_', ' ');
     btn.style.cssText = `
@@ -76,7 +96,7 @@ function injectHUDConsole() {
   document.body.appendChild(consoleContainer);
 }
 
-// Initialize interface enhancements on window load
+// Global System Boot
 window.addEventListener('DOMContentLoaded', () => {
   injectHUDConsole();
 });
@@ -98,27 +118,12 @@ document.addEventListener("dblclick", function(e) {
 
 /* BLOCK INSPECT SHORTCUTS */
 document.addEventListener("keydown", function(e) {
-  // Disable F12
-  if (e.key === "F12") {
+  if (e.key === "F12") e.preventDefault();
+  
+  if (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C")) {
     e.preventDefault();
   }
 
-  // Disable Ctrl + Shift + I
-  if (e.ctrlKey && e.shiftKey && e.key === "I") {
-    e.preventDefault();
-  }
-
-  // Disable Ctrl + Shift + J
-  if (e.ctrlKey && e.shiftKey && e.key === "J") {
-    e.preventDefault();
-  }
-
-  // Disable Ctrl + Shift + C
-  if (e.ctrlKey && e.shiftKey && e.key === "C") {
-    e.preventDefault();
-  }
-
-  // Disable Ctrl + U (View Source)
   if (e.ctrlKey && e.key.toLowerCase() === "u") {
     e.preventDefault();
   }
