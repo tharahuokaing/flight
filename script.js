@@ -15,11 +15,11 @@ const TRACKING_CONFIGS = {
     adsb: "type=UAV.*|MQ.*|RQ.*|GH.*",
     fr24: "aircraft=uav,mq9,rq4"
   },
-  STEALTH_MILITARY: {
+  STEALTH: {
     adsb: "mil=1&type=F35*|F22*|B2*|B21*|F117*|E3*|RC135*",
     fr24: "aircraft=f35,f22,b2,e3cf,r135"
   },
-  ALL_MILITARY: {
+  ALL: {
     adsb: "mil=1",
     fr24: "cat=military"
   }
