@@ -1,16 +1,11 @@
 // 1. Dual-Engine Target Routing Map configurations (Synced to Sector Coordinates)
-const ADS_B_BASE = "https://globe.adsbexchange.com/?lat=13.06&lon=93.10&zoom=5&hideButtons=1&hideSideBar=1&enableLabels=1";
+const ADS_B_BASE = "https://www.flightradar24.com/simple?lat=13.06&lon=93.10&z=5&hideButtons=1&hideSideBar=1&enableLabels=1";
 const FR24_BASE  = "https://www.flightradar24.com/simple_index.php?lat=13.06&lon=93.10&z=5";
 
 const TRACKING_CONFIGS = {
   ALL: {
     adsb: "type=UAV.*|MQ.*|RQ.*|GH.*", // Default view shows drones on ADS-B
     fr24: ""                            // Default view shows raw region on FR24
-  },
-  DRONES: {
-    adsb: "type=UAV.*|MQ.*|RQ.*|GH.*",
-    fr24: "aircraft=uav,mq9,rq4"
-  },
   STEALTH: {
     adsb: "mil=1&type=F35*|F22*|B2*|B21*|F117*|E3*|RC135*",
     fr24: "aircraft=f35,f22,b2,e3cf,r135"
