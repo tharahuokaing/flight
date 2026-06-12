@@ -1,7 +1,3 @@
-/**
- * Unified Tactical Drone & Military Tracking Core Console
- */
-
 // 1. Dual-Engine Target Routing Map configurations (Synced to Sector Coordinates)
 const ADS_B_BASE = "https://globe.adsbexchange.com/?lat=13.06&lon=93.10&zoom=5&hideButtons=1&hideSideBar=1&enableLabels=1";
 const FR24_BASE  = "https://www.flightradar24.com/simple_index.php?lat=13.06&lon=93.10&z=5";
